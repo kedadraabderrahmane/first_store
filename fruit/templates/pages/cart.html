@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- breadcrumb-section -->
+	<!-- <div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Fresh and Organic</p>
+						<h1>Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- end breadcrumb section -->
+	<div class="container">
+	
+	</div>
+	<!-- cart -->
+	<div class="cart-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-12">
+					<div class="cart-table-wrap">
+						<table class="cart-table">
+							<thead class="cart-table-head">
+								<tr class="table-head-row">
+									<th class="product-remove"></th>
+									<th class="product-image">Product Image</th>
+									<th class="product-name">Name</th>
+									<th class="product-price">Price</th>
+									<th class="product-quantity">Quantity</th>
+									<!-- <th class="product-total">Total</th> -->
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in cart_items %}
+								<tr class="table-body-row">
+									<td class="product-remove"><a href="{% url 'remove_from_cart' item.id %}"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="{{item.product.image.url}}" alt=""></td>
+									<td class="product-name">{{item.product}}</td>
+									<td class="product-price">{{item.product.price}}دج</td>
+									
+									
+									<td class="product-quantity">
+									 <div class="cart-item-quantity">
+										<form action="{% url 'add_to_cart' item.product.id %}" method="POST">
+											{% csrf_token %}
+												<button class="quantity-btn increase-quantity" type="submit">+</button>
+				
+										</form>
+										<br>
+										<span class="product-quantity">{{ item.quantity }}</span>
+										<br>
+										<form action="{% url 'decrease_cart_item' item.product.id %}" method="post">
+											{% csrf_token %}
+											<button class="quantity-btn decrease-quantity" type="submit">-</button>
+										</form>
+									 </div>
+									</td>
+										
+									
+									<!-- <td class="product-total">{{itemtotal}}دج</td> -->
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="cart-buttons">
+					<a href="{% url 'view_cart'  %}" class="boxed-btn">Update Cart</a>
+					<a href="{% url 'checkout' 0 %}" type="submit" class="boxed-btn black">أطلب الآن</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end cart -->
+
+{% endblock content %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>لتفاصيل أكثر اضغط هنا</p>
+						<h1>{{id_product.name}}</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end breadcrumb section -->
+
+	<!-- single product -->
+	<div class="single-product mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<div class="single-product-img">
+						<img src="{{id_product.image.url}}" alt="">
+					</div>
+				</div>
+				<div class="col-md-7">
+					<div class="single-product-content">
+						<h3>{{id_product.name}}</h3>
+						<p class="single-product-pricing"> دج{{id_product.price}}</p>
+						<p>{{id_product.describtion}}</p>
+					
+						<!-- <div class="cart-item-quantity">
+							<form action="{% url 'increase_cart_item' id_product.id %}" method="POST">
+							{% csrf_token %}
+								<button class="quantity-btn increase-quantity" type="submit">+</button>
+
+							</form>
+							
+							<span class="product-quantity">{{ item.quantity }}</span>
+							<form action="{% url 'decrease_cart_item' id_product.id %}" method="post">
+								{% csrf_token %}
+								<button class="quantity-btn decrease-quantity" type="submit">-</button>
+							</form>
+							<input type="hidden" name="next" value="{{ request.path }}">
+						</div> -->
+						<br>
+						<a href="{% url 'checkout' id_product.id %}" class="boxed-btn black"> أطلب الآن</a>
+						<a href="{% url 'add_to_cart' id_product.id %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</a>
+						<p><strong>التصنيفات: </strong>Fruits, Organic</p>
+						
+						<h4>مشاركة:</h4>
+						<ul class="product-share">
+							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+							<li><a href=""><i class="fab fa-twitter"></i></a></li>
+							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
+							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end single product -->
+
+	<!-- more products -->
+	<div class="more-products mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="section-title">	
+						<h3><span class="orange-text"> منتجات </span>ذات صلة</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% for product in products %}
+				<div class="col-lg-4 col-md-6 text-center {{product.name}}">
+					<div class="single-product-item">
+						<div class="product-image">
+							<a href="{% url 'single-product' product.id %}"><img src="{{product.image.url}}" alt=""></a>
+						</div>
+						<h3>{{product.name}}</h3>
+						<p class="product-price"> دج{{product.price}} </p>
+						<a href="{% url 'add_to_cart' product.id %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> أضف للسلة</a>
+					</div>
+				</div>
+				{% endfor %}
+				
+				
+			</div>
+		</div>
+	</div>
+	<!-- end more products -->
+	
+{% endblock content %}
